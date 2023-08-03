@@ -15,12 +15,12 @@
                                 (--> (in-hole E (or e false)) (in-hole E e))
                                 (--> (in-hole E (and e true)) (in-hole E e))
                                 (--> (in-hole E (and e false)) (in-hole E false))
+                                (--> (in-hole E (+ e_1 natural_1)) (in-hole E (+ e_1 natural_1)))
                                 (--> (in-hole E (+ natural_1 natural_2)) (in-hole E ,(+ (term natural_1) (term natural_2))))
                                 (--> (in-hole E (if true e_1 e_2)) (in-hole E e_1))
                                 (--> (in-hole E (if false e_1 e_2)) (in-hole E e_2))
                                 (--> (in-hole E (< natural_1 natural_2)) (in-hole E ,(if (< (term natural_1) (term natural_2)) (term true) (term false))))
                                 ))
-
 
 (define-judgment-form TypedExprL
   #:mode (types I O)
@@ -111,6 +111,8 @@
 
 ;; (traces ->e (term (+ (+ 2 5) (+ 8 (+ 9 8)))))
 
+; (traces ->e (term (if true false true)))
+
 ;; (traces ->e (term (and (or false false) (or true true))))
 
 ;; (traces ->e (term (and true false)))
@@ -118,6 +120,9 @@
 ;; (traces ->e (term (if (and true false) (or true false) (+ 10 20))))
 
 ;; (traces ->e (term (< 4 5)))
+ 
+;; (judgment-holds (types ,(if true 10 20) nat))
 
+(traces ->e (term (+ (+ 2 5) 4)))
 
 (provide (all-defined-out))
